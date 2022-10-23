@@ -1,0 +1,63 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="grogal" id="1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="USERS"/>
+                <tableExists tableName="SESSIONS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="USERS">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="USER_ID_PK" />
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="USERS" columnName="ID" columnDataType="bigint" startWith="1" incrementBy="1" />
+        <createSequence sequenceName="USERS_SEQUENCE" incrementBy="1" startValue="1" />
+        <createTable tableName="SESSIONS">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="SESSION_ID_PK" />
+            </column>
+            <column name="START_DATE" type="datetime"/>
+            <column name="END_DATE" type="datetime" />
+            <column name="STATE" type="VARCHAR(10)" />
+            <column name="USER_ID" type="bigint" />
+        </createTable>
+        <addAutoIncrement tableName="SESSIONS" columnName="ID" columnDataType="bigint" startWith="1" incrementBy="1" />
+        <createSequence sequenceName="SESSIONS_SEQUENCE" incrementBy="1" startValue="1" />
+    </changeSet>
+
+<!--    <changeSet author="grogal" id="2">-->
+<!--        <insert tableName="USERS">-->
+<!--            <column name="ID" value="1" />-->
+<!--        </insert>-->
+<!--        <insert tableName="USERS">-->
+<!--            <column name="ID" value="2" />-->
+<!--        </insert>-->
+<!--        <insert tableName="SESSIONS">-->
+<!--            <column name="ID" value="1" />-->
+<!--            <column name="START_DATE" value="2022-10-18 13:23:44"/>-->
+<!--            <column name="END_DATE" value="2022-10-18 14:23:44" />-->
+<!--            <column name="USER_ID" value="1" />-->
+<!--        </insert>-->
+<!--        <insert tableName="SESSIONS">-->
+<!--            <column name="ID" value="2" />-->
+<!--            <column name="START_DATE" value="2022-10-18 1:23:44"/>-->
+<!--            <column name="END_DATE" value="2022-10-18 1:23:44" />-->
+<!--            <column name="USER_ID" value="1" />-->
+<!--        </insert>-->
+<!--        <insert tableName="SESSIONS">-->
+<!--            <column name="ID" value="3" />-->
+<!--            <column name="START_DATE" value="2021-10-18 3:03:44"/>-->
+<!--            <column name="END_DATE" value="2021-10-18 4:23:44" />-->
+<!--            <column name="USER_ID" value="2" />-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+</databaseChangeLog>
